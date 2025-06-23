@@ -15,13 +15,16 @@ typedef struct s_data
     int fd_so;
     int fd_we;
     int fd_ea;
-    int *floor;
-    int *cellin;
-    int *map;
+    int floor;
+    int cellin;
+    char **map;
+    int map_height;
 }t_data;
 
+int	ft_atoi(const char *nptr);
+char	**ft_split(char const *s, char c);
 int ft_space(int ch);
-char	**ft_split(char const *s);
+char	**split_space(char const *s);
 void	*free_array(char **s);
 int	size_2d(char **arr);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);

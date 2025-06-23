@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   split_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:19:28 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/22 20:06:26 by onajem           ###   ########.fr       */
+/*   Updated: 2025/06/23 13:11:59 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	count_words(char const *s)
 		return (0);
 	i = 0;
 	words = 0;
-	printf("-> %s\n", s);
 	while (s[i])
 	{
 		if ((!ft_space(s[i]) && ft_space(s[i + 1])) || (!ft_space(s[i]) && s[i + 1] == '\0'))
@@ -78,10 +77,11 @@ void	*free_array(char **s)
 		i++;
 	}
 	free(s);
+	s = NULL;
 	return (NULL);
 }
 
-char	**ft_split(char const *s)
+char	**split_space(char const *s)
 {
 	size_t	words;
 	size_t	start;

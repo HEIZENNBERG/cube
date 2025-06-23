@@ -1,5 +1,5 @@
-SRC = parsing/utils/get_next_line.c parsing/utils/get_next_line_utils.c parsing/utils/split.c \
-  parsing/utils/helpers.c parsing/parsing.c 
+SRC = parsing/utils/get_next_line.c parsing/utils/get_next_line_utils.c parsing/utils/ft_split.c \
+  parsing/utils/helpers.c parsing/parsing.c  parsing/utils/split_space.c parsing/utils/ft_atoi.c 
 
 
 OBJ = ${SRC:.c=.o}
