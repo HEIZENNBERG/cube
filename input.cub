@@ -1,13 +1,13 @@
-SO path/south
-NO path/north
-WE path/west
+SO ../path/south
+NO ../path/north
+WE ../path/west
 
-EA path/east
+EA ../path/east
 
 F 225,225,225
 C 225,30,0
 
-        1111111111111111111111111
+       1111111111111111111111111
         1000000000110000000000001
         1011000001110000000000001
         1001000000000000000000001

@@ -103,6 +103,8 @@ int map_begin(char *str)
             return (0);
         i++;
     }
+    if (i == 0)
+        return (0);
     return (1);
 }
 
@@ -162,29 +164,78 @@ int check_args(char *line, t_data *data, int done)
         if (!splited)
             return (0);
         if (size_2d(splited) > 2 || !init_colors(splited, data))
+        {
             exit_error(splited);
+        }
         free_array(splited);
     }
-    else if (!done && !line_empty(line) && !map_begin(line))
+    else if (done && !line_empty(line))
     {
-        printf("yep\n");
-        return(0);
+        if (map_begin(line))
+            return(2);
     }
-    else
-    {
-        printf("val\n");
-        exit(1);
-        return (check_map(line, data));
-    }
+    else if (!done && map_begin(line))
+        return (0);
     return (1);
 }
 
+void copy_old_lines(char **dest, char **src, int count)
+{
+    int i = 0;
+    while (i < count)
+    {
+        dest[i] = src[i];
+        i++;
+    }
+}
+
+
+void store_map(char *line, int fd, t_data *data)
+{
+    char **tmp;
+
+    data->map_height = 1;
+    data->map = (char **)malloc(sizeof(char *) * (data->map_height + 1));
+    if (!data->map)
+    {
+        free(line);
+        exit_error(NULL);
+    }
+    
+    data->map[0] = line;
+    data->map[1] = NULL;
+
+    while (1)
+    {
+        line = get_next_line(fd);
+        if (!line)
+            break;
+        tmp = (char **)malloc(sizeof(char *) * (data->map_height + 2));
+        if (!tmp)
+        {
+            free(line);
+            exit_error(data->map);
+        }
+
+        copy_old_lines(tmp, data->map, data->map_height);
+
+        tmp[data->map_height] = line;
+        tmp[data->map_height + 1] = NULL;
+        free(data->map);
+
+        data->map = tmp;
+        data->map_height++;
+    }
+
+}
 
 void init_data(t_data *data, char *file)
 {
     int fd;
     char *line;
     int done;
+    int map_start;
+
 
     fd = open(file, O_RDONLY);
     if (fd < 0)
@@ -196,18 +247,21 @@ void init_data(t_data *data, char *file)
     while (1)
     {
         line = get_next_line(fd);
-        // printf("%s", line);
         if (!line)
             break;
-        if (check_args(line , data, done) == 0)
+        map_start = check_args(line , data, done);
+        if (map_start == 0)
         {
             free(line);
             exit_error(NULL);
         }
+        else if (map_start == 2)
+            break;
         if (check_args_init(data))
             done = 1;
         free(line);
     }
+    store_map(line, fd, data);
 }
 
 void pre_init(t_data *data)
@@ -229,6 +283,12 @@ int main(int ac, char *av[])
     t_data data;
     pre_init(&data);
     init_data(&data, av[1]);
+    int i = 0;
+    while (data.map[i])
+    {
+        printf("%s", data.map[i]);
+        i++;
+    }
     free_array(data.map);
     // printf("floor : %d | cellin : %d\n", data.floor, data.cellin);
 }

@@ -24,8 +24,6 @@ static int	num_start(const char **str)
 	int	sign;
 
 	sign = 1;
-	while (**str == ' ' || (**str >= 9 && **str <= 13))
-		(*str)++;
 	if (**str == '-' || **str == '+')
 	{
 		if (**str == '-')
@@ -42,6 +40,8 @@ int	ft_atoi(const char *nptr)
 
 	sum = 0;
 	sign = num_start(&nptr);
+	if (!is_num(*nptr))
+		return (-1);
 	while (is_num(*nptr))
 	{
 		if (check_overflow(sum, *nptr, sign) != 1)

@@ -16,6 +16,7 @@ GFLAGS =
 
 all : ${NAME}
 
+
 %.o: %.c cube.h 
 	${CC} -fsanitize=address ${GFLAGS} -c $< -o $@ 
 
