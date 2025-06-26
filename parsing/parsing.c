@@ -94,18 +94,18 @@ int	init_colors(char **src, t_data *data)
 
 int map_begin(char *str)
 {
-    int i;
+    int i = 0;
+    int has_wall = 0;
 
-    i = 0;
-    while (str[i] != '\n')
+    while (str[i] && str[i] != '\n')
     {
         if (str[i] != '1' && str[i] != ' ')
             return (0);
+        if (str[i] == '1')
+            has_wall = 1;
         i++;
     }
-    if (i == 0)
-        return (0);
-    return (1);
+    return has_wall; 
 }
 
 int line_empty(char *str)
@@ -124,21 +124,6 @@ int line_empty(char *str)
     return (1);
 }
 
-int check_map(char *line, t_data *data)
-{
-    if (!line)
-        return (0);
-    if (!data->map && map_begin(line))
-    {
-        data->map = (char **) malloc(2 * sizeof(char*));
-        if (!data->map)
-            return(0);
-        data->map[data->map_height] = ft_strdup(line);
-        data->map_height++;
-        data->map[data->map_height] = NULL;
-    }
-    return (1);
-}
 
 int check_args(char *line, t_data *data, int done)
 {
@@ -169,10 +154,12 @@ int check_args(char *line, t_data *data, int done)
         }
         free_array(splited);
     }
-    else if (done && !line_empty(line))
+    else if (!line_empty(line))
     {
-        if (map_begin(line))
+        if (map_begin(line) && done)
             return(2);
+        else 
+            return (0);
     }
     else if (!done && map_begin(line))
         return (0);
@@ -229,6 +216,96 @@ void store_map(char *line, int fd, t_data *data)
 
 }
 
+
+int is_map_char(char c)
+{
+    return (c == '0' || c == '1' || c == ' ' || c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+int is_player_char(char c)
+{
+    return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+int check_chars(char **arr)
+{
+    int i;
+    int j;
+    int player;
+
+    if (!arr)
+        return (0);
+    i = 0;
+    player = 0;
+    while (arr[i])
+    {
+        j = 0;
+        if (line_empty(arr[i]))
+            return (0);
+        while (arr[i][j] && arr[i][j] != 10)
+        {
+            if (is_map_char(arr[i][j]) == 0 || player > 1)
+                return (0);
+            if (is_player_char(arr[i][j]))
+                player++;
+            j++;
+        }
+        i++;
+    }
+    return (1);
+}
+
+int check_borders(char **arr)
+{
+    int i = 0;
+    int j;
+
+    if (!arr)
+        return (0);
+
+    while (arr[i])
+    {
+        j = 0;
+
+        while (arr[i][j] == ' ')
+            j++;
+
+        if (arr[i][j] != '1')
+        {
+            printf("Error: left border at line %d is not '1'\n", i);
+            return (0);
+        }
+
+        j = ft_strlen(arr[i]) - 1;
+
+        while (j >= 0 && (arr[i][j] == ' ' || arr[i][j] == '\n'))
+            j--;
+
+        if (j >= 0 && arr[i][j] != '1')
+        {
+            printf("Error: right border at line %d is not '1'\n", i);
+            return (0);
+        }
+
+        i++;
+    }
+    if (arr[i -1 ] && !map_begin(arr[i - 1]))
+        return (0);
+    
+    return (1);
+}
+
+int validate_map(t_data *data)
+{
+    if (!data)
+        return (0);
+    if (!check_chars(data->map))
+        return (0);
+    if (!check_borders(data->map))
+        return (0);
+    return (1);
+}
+
 void init_data(t_data *data, char *file)
 {
     int fd;
@@ -262,6 +339,11 @@ void init_data(t_data *data, char *file)
         free(line);
     }
     store_map(line, fd, data);
+    if (!validate_map(data))
+    {
+        exit_error(data->map);
+    }
+        // return (0);
 }
 
 void pre_init(t_data *data)
@@ -283,12 +365,12 @@ int main(int ac, char *av[])
     t_data data;
     pre_init(&data);
     init_data(&data, av[1]);
-    int i = 0;
-    while (data.map[i])
-    {
-        printf("%s", data.map[i]);
-        i++;
-    }
+    // int i = 0;
+    // while (data.map[i])
+    // {
+    //     printf("%s", data.map[i]);
+    //     i++;
+    // }
     free_array(data.map);
     // printf("floor : %d | cellin : %d\n", data.floor, data.cellin);
 }
