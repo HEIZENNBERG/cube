@@ -255,45 +255,108 @@ int check_chars(char **arr)
     return (1);
 }
 
-int check_borders(char **arr)
+int check_borders(char **map)
 {
     int i = 0;
     int j;
 
-    if (!arr)
+    if (!map)
         return (0);
 
-    while (arr[i])
+    while (map[i])
     {
         j = 0;
 
-        while (arr[i][j] == ' ')
+        while (map[i][j] == ' ')
             j++;
 
-        if (arr[i][j] != '1')
-        {
-            printf("Error: left border at line %d is not '1'\n", i);
+        if (map[i][j] != '1')
             return (0);
-        }
+        
 
-        j = ft_strlen(arr[i]) - 1;
+        j = ft_strlen(map[i]) - 1;
 
-        while (j >= 0 && (arr[i][j] == ' ' || arr[i][j] == '\n'))
+        while (j >= 0 && (map[i][j] == ' ' || map[i][j] == '\n'))
             j--;
 
-        if (j >= 0 && arr[i][j] != '1')
-        {
-            printf("Error: right border at line %d is not '1'\n", i);
+        if (j >= 0 && map[i][j] != '1')
+
             return (0);
-        }
 
         i++;
     }
-    if (arr[i -1 ] && !map_begin(arr[i - 1]))
+    if (map[i -1 ] && !map_begin(map[i - 1]))
         return (0);
     
     return (1);
 }
+
+
+int is_flooded(char c)
+{
+    return (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+int check_flood(char **map, int height)
+{
+    int i;
+    int j;
+
+    i = 1;
+    while (i < height)
+    {
+        j = 0;
+        while (map[i][j])
+        {
+            if (is_flooded(map[i][j]))
+            {
+                if (map[i - 1][j] == ' ')
+                    return (0);
+                if (map[i + 1][j] && map[i + 1][j] == ' ')
+                    return (0);
+                if (j == 0 || map[i][j - 1] == ' ')
+                    return (0);
+                if (map[i][j + 1] && map[i][j + 1] == ' ')
+                    return (0);
+            }
+            j++;
+        }
+        i++;
+    }
+    return (1); 
+}
+
+
+int check_lines_overflow(char **map, int height)
+{
+    int i;
+    int j;
+    int top_len;
+    int bot_len;
+    int  curr_len;
+
+    for (i = 1; i < height - 1; i++)
+    {
+        curr_len = ft_strlen(map[i]);
+        top_len = ft_strlen(map[i - 1]);
+        bot_len = ft_strlen(map[i + 1]);
+
+        for (j = 0; j < curr_len; j++)
+        {
+            char c = map[i][j];
+            if (j >= top_len && is_flooded(c)) {
+
+                return (0);
+            }
+            if (j >= bot_len && is_flooded(c)) {
+
+                return (0);
+            }
+        }
+    }
+    return (1);
+}
+
 
 int validate_map(t_data *data)
 {
@@ -302,6 +365,10 @@ int validate_map(t_data *data)
     if (!check_chars(data->map))
         return (0);
     if (!check_borders(data->map))
+        return (0);
+    if (!check_lines_overflow(data->map, data->map_height))
+        return (0);
+    if (!check_flood(data->map, data->map_height))
         return (0);
     return (1);
 }
