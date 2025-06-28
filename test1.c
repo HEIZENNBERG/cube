@@ -192,17 +192,7 @@ void	raycaster(t_game *g)
         else 
             perpWallDist = sideDistY -deltaDistY;
 		lineHeight = (int)(SCREEN_HEIGHT / perpWallDist);
-		drawStart = -lineHeight / 2 + SCREEN_HEIGHT / 2;
-		drawEnd = lineHeight / 2 + SCREEN_HEIGHT / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		if (drawEnd >= SCREEN_HEIGHT)
-			drawEnd = SCREEN_HEIGHT - 1;
-		color = (side == 0) * 0xFF0000 +(side!=0) *0x880000;
-		y = 0;
-		while (y < drawStart)
-		{
-			put_pixel_to_img(g, x, y, 0x87CEEB);
+		drawStart = -lin_img(g, x, y, 0x87CEEB);
 			y++;
 		}
 		y = drawStart;
@@ -219,7 +209,7 @@ void	raycaster(t_game *g)
 		}
 		x++;
 	}
-}
+
 
 int	render(void *p)
 {

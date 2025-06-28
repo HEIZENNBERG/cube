@@ -26,7 +26,9 @@ int check_args_init(t_data *data)
 }
 int init_cordination(char **src, t_data *data)
 {
-    int fd = open(src[1], O_RDONLY);
+    int fd;
+    
+    fd = open(src[1], O_RDONLY);
     if (fd < 0)
         return (0);
 
@@ -124,6 +126,25 @@ int line_empty(char *str)
     return (1);
 }
 
+int check_dash(char *line)
+{
+    int i;
+    int count;
+
+    if (!line)
+        return (0);
+    count = 0;
+    i = 0;
+    while (line [i])
+    {
+        if (line[i] == ',')
+            count++;
+        i++;
+    }
+    if (count == 2)
+        return (1);
+    return (0);
+}
 
 int check_args(char *line, t_data *data, int done)
 {
@@ -145,6 +166,8 @@ int check_args(char *line, t_data *data, int done)
     }
     else if (!done && (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2)))
     {
+        if (!check_dash(line))
+            return (0);
         splited = split_space(line);
         if (!splited)
             return (0);
@@ -176,6 +199,21 @@ void copy_old_lines(char **dest, char **src, int count)
     }
 }
 
+void	remove_new_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\n')
+		{
+			line[i] = '\0';
+			return ;
+		}
+		i++;
+	}
+}
 
 void store_map(char *line, int fd, t_data *data)
 {
@@ -197,6 +235,7 @@ void store_map(char *line, int fd, t_data *data)
         line = get_next_line(fd);
         if (!line)
             break;
+        remove_new_line(line);
         tmp = (char **)malloc(sizeof(char *) * (data->map_height + 2));
         if (!tmp)
         {
@@ -252,6 +291,8 @@ int check_chars(char **arr)
         }
         i++;
     }
+    if (player == 0)
+        return (0);
     return (1);
 }
 
@@ -348,6 +389,7 @@ int check_lines_overflow(char **map, int height)
 
                 return (0);
             }
+
             if (j >= bot_len && is_flooded(c)) {
 
                 return (0);
@@ -425,6 +467,8 @@ void pre_init(t_data *data)
     data->map_height = 0;
 }
 
+#include <string.h>
+
 int main(int ac, char *av[])
 {
     if (ac != 2)
@@ -432,10 +476,12 @@ int main(int ac, char *av[])
     t_data data;
     pre_init(&data);
     init_data(&data, av[1]);
-    // int i = 0;
+    int i = 0;
     // while (data.map[i])
     // {
-    //     printf("%s", data.map[i]);
+    //     // if (strchr(data.map[i], '\n'))
+    //     //     printf("nwl[%d]\n", i);
+    //     // printf("%s", data.map[i]);
     //     i++;
     // }
     free_array(data.map);
