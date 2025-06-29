@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/29 20:24:20 by aelkadir          #+#    #+#             */
+/*   Updated: 2025/06/29 20:28:54 by aelkadir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube.h"
+
 static void	dda(t_ray *r, t_game *g)
 {
 	int	hit;
@@ -23,7 +36,7 @@ static void	dda(t_ray *r, t_game *g)
 	}
 }
 
-static void 	init_ray(t_ray *r, t_game *g)
+static void	init_ray(t_ray *r, t_game *g)
 {
 	(*r).cameraX = 2 * (*r).x / (double)SCREEN_WIDTH - 1;
 	(*r).rayDirX = g->player.dirX + g->player.planeX * (*r).cameraX;
@@ -74,7 +87,7 @@ static void	raycaster(t_game *g)
 
 int	render(void *p)
 {
-	t_game	*g;
+	t_game *g;
 
 	g = (t_game *)p;
 	move_player(g);
