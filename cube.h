@@ -1,5 +1,3 @@
-
-
 #ifndef CUBE_H
 #define CUBE_H
 
@@ -8,7 +6,14 @@
 #include <unistd.h>
 #include <fcntl.h>
 # include <limits.h>
+#include "mlx/mlx.h"
+#include <math.h>
 
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+#define TEX_WIDTH 64
+#define TEX_HEIGHT 64
 
 typedef struct s_data
 {
@@ -21,6 +26,77 @@ typedef struct s_data
     char **map;
     int map_height;
 }t_data;
+
+
+
+typedef struct s_player
+{
+	double		posX;
+	double		posY;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
+}				t_player;
+
+typedef struct s_texture
+{
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_texture;
+
+typedef struct s_game
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*img_data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	t_player	player;
+	char		**map;
+	int			forward;
+	int			backward;
+	int			rotate_left;
+	int			rotate_right;
+	t_texture	textures[4];
+}				t_game;
+
+typedef struct s_ray
+{
+	int			x;
+	int mapX;
+    int  mapY;
+	int stepX;
+    int stepY;
+	int			side;
+	int			lineHeight;
+	int drawStart, drawEnd;
+	int texX, texNum;
+
+	double		cameraX;
+	double rayDirX, rayDirY;
+	double deltaDistX, deltaDistY;
+	double sideDistX, sideDistY;
+	double		perpWallDist;
+	double		wallX;
+}				t_ray;
+
+
+
+
+
+
+
+
+
+
+
+
 
 int	ft_space(int ch);
 int	valid_color(int val);
@@ -69,4 +145,15 @@ int		ft_strchr(const char *s, int c);
 char	*get_next_line(int fd);
 
 
+// raycasting 
+
+void	put_pixel_to_img(t_game *g, int x, int y, int color);
+void	load_texture(t_game *g, int i, char *path);
+int	key_press(int keycode, t_game *game);
+int	key_release(int keycode, t_game *game);
+void	move_player(t_game *g);
+void	draw_ceiling(t_game *g, t_ray *r);
+void	draw_floor(t_game *g, int x, int draw_end);
+void	draw_wall(t_game *g, t_ray *r);
+int	render(void *p);
 #endif
