@@ -6,26 +6,11 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:19:28 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/23 13:11:59 by onajem           ###   ########.fr       */
+/*   Updated: 2025/06/29 15:44:53 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cube.h"
-
-int ft_space(int ch) 
-{
-    char *spaces;
-    int i;
-	
-	spaces = " \t\n\v\f\r";
-	i = 0;
-    while (spaces[i]) {
-        if (ch == spaces[i])
-            return (1);
-        i++;
-    }
-    return 0;
-}
 
 static int	count_words(char const *s)
 {
@@ -38,7 +23,8 @@ static int	count_words(char const *s)
 	words = 0;
 	while (s[i])
 	{
-		if ((!ft_space(s[i]) && ft_space(s[i + 1])) || (!ft_space(s[i]) && s[i + 1] == '\0'))
+		if ((!ft_space(s[i]) && ft_space(s[i + 1]))
+			|| (!ft_space(s[i]) && s[i + 1] == '\0'))
 			words++;
 		i++;
 	}
@@ -50,7 +36,7 @@ static void	get_lim(char const *s, size_t *start, size_t *end)
 	while (ft_space(s[*end]))
 		(*end)++;
 	*start = *end;
-	while (!ft_space(s[*end])&& s[*end])
+	while (!ft_space(s[*end]) && s[*end])
 		(*end)++;
 }
 

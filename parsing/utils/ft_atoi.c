@@ -1,17 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/29 15:36:24 by onajem            #+#    #+#             */
+/*   Updated: 2025/06/29 15:44:58 by onajem           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cube.h"
 
-
-static int	check_overflow(long long num, char digit, int is_neg)
+int	ft_space(int ch)
 {
-	if (num > LLONG_MAX / 10
-		|| (num == LLONG_MAX / 10 && (digit - '0') > LLONG_MAX % 10))
+	char	*spaces;
+	int		i;
+
+	spaces = " \t\n\v\f\r";
+	i = 0;
+	while (spaces[i])
 	{
-		if (is_neg == -1)
-			return (0);
-		else if (is_neg == 1)
-			return (-1);
+		if (ch == spaces[i])
+			return (1);
+		i++;
 	}
-	return (1);
+	return (0);
 }
 
 static int	is_num(char c)
@@ -36,7 +50,7 @@ static int	num_start(const char **str)
 int	ft_atoi(const char *nptr)
 {
 	int			sign;
-	long long	sum;
+	int			sum;
 
 	sum = 0;
 	sign = num_start(&nptr);
@@ -44,8 +58,8 @@ int	ft_atoi(const char *nptr)
 		return (-1);
 	while (is_num(*nptr))
 	{
-		if (check_overflow(sum, *nptr, sign) != 1)
-			return (check_overflow(sum, *nptr, sign));
+		if (sum > sum * 10 + (*nptr - '0'))
+			return (-1);
 		sum = sum * 10 + (*nptr - '0');
 		nptr++;
 	}

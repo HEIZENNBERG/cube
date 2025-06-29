@@ -1,6 +1,6 @@
 SRC = parsing/utils/get_next_line.c parsing/utils/get_next_line_utils.c parsing/utils/ft_split.c \
-  parsing/utils/helpers.c parsing/parsing.c  parsing/utils/split_space.c parsing/utils/ft_atoi.c 
-
+  parsing/utils/helpers.c parsing/parsing.c  parsing/utils/split_space.c parsing/utils/ft_atoi.c \
+  parsing/parse_elemts_2.c  parsing/parse_elemts.c  parsing/parse_map.c  parsing/parse_utils.c
 
 OBJ = ${SRC:.c=.o}
 
@@ -12,7 +12,7 @@ NAME = cube
 
 RM = rm -f
 
-GFLAGS = 
+GFLAGS = -Werror -Wall -Wextra
 
 all : ${NAME}
 
