@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:20 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/06/29 20:28:54 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/06/29 21:29:44 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ static void	init_ray(t_ray *r, t_game *g)
 	(*r).deltaDistY = fabs(1 / (*r).rayDirY);
 	(*r).stepX = -((*r).rayDirX < 0) + ((*r).rayDirX >= 0);
 	(*r).sideDistX = ((*r).rayDirX < 0) * ((g->player.posX - (*r).mapX)
-			* (*r).deltaDistX) + ((*r).rayDirX >= 0)
-		* ((*r).sideDistX = ((*r).mapX + 1.0 - g->player.posX)
-			* (*r).deltaDistX);
+			* (*r).deltaDistX) + ((*r).rayDirX >= 0) * ((r->mapX + 1.0
+				- g->player.posX) * (*r).deltaDistX);
 	(*r).stepY = -((*r).rayDirY < 0) + ((*r).rayDirY >= 0);
 	(*r).sideDistY = ((*r).rayDirY < 0) * ((g->player.posY - (*r).mapY)
 			* (*r).deltaDistY) + ((*r).rayDirY >= 0) * (((*r).mapY + 1.0
@@ -87,7 +86,7 @@ static void	raycaster(t_game *g)
 
 int	render(void *p)
 {
-	t_game *g;
+	t_game	*g;
 
 	g = (t_game *)p;
 	move_player(g);
