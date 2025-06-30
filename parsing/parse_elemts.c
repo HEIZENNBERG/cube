@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:49:06 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/29 15:51:08 by onajem           ###   ########.fr       */
+/*   Updated: 2025/06/30 17:35:48 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,31 @@ int	check_lines_overflow(char **map, int height, int i)
 	return (1);
 }
 
+void	normilize_map(t_data *data)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == ' ')
+				data->map[i][j] = '0';
+			if (is_player_char(data->map[i][j]))
+			{
+				data->y_player = i;
+				data->x_player = j;
+				data->map[i][j] = '0';
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 int	validate_map(t_data *data)
 {
 	int	i;
@@ -88,6 +113,7 @@ int	validate_map(t_data *data)
 		return (0);
 	if (!check_flood(data->map, data->map_height))
 		return (0);
+	normilize_map(data);
 	return (1);
 }
 

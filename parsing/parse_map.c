@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:51:21 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/29 15:52:20 by onajem           ###   ########.fr       */
+/*   Updated: 2025/06/30 17:40:12 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ void	store_map(char *line, int fd, t_data *data)
 	data->map_height = 1;
 	data->map = (char **)malloc(sizeof(char *) * (data->map_height + 1));
 	if (!data->map)
-	{
-		free(line);
-		exit_error(NULL);
-	}
+		(free(line), exit_error(NULL));
 	data->map[0] = line;
 	data->map[1] = NULL;
+	remove_new_line(line);
 	while (1)
 	{
 		line = get_next_line(fd);

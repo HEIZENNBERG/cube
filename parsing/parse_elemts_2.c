@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:45:43 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/29 15:48:50 by onajem           ###   ########.fr       */
+/*   Updated: 2025/06/30 17:36:21 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ int	color_process(char *line, t_data *data)
 
 int	check_args(char *line, t_data *data, int done)
 {
-	int		args;
-
-	args = 0;
 	if (!done && (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
 			|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3)))
 	{
