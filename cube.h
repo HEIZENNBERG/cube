@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:14 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/06/29 20:24:15 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/01 21:46:42 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
-# define TEX_WIDTH 64
-# define TEX_HEIGHT 64
+# define TEX_WIDTH 650
+# define TEX_HEIGHT 650
+#define FOV 0.66
 
 typedef struct s_data
 {
@@ -48,14 +49,14 @@ typedef struct s_player
 	double		planeY;
 }				t_player;
 
-typedef struct s_texture
-{
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			size_line;
-	int			endian;
-}				t_texture;
+typedef struct s_texture {
+    void    *img;
+    char    *addr;
+    int     bpp;
+    int     size_line;
+    int     endian;
+}   t_texture;
+
 
 typedef struct s_game
 {

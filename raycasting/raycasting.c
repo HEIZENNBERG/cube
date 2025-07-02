@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:20 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/06/29 21:29:44 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/01 22:53:15 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,25 @@ static void	dda(t_ray *r, t_game *g)
 
 static void	init_ray(t_ray *r, t_game *g)
 {
-	(*r).cameraX = 2 * (*r).x / (double)SCREEN_WIDTH - 1;
-	(*r).rayDirX = g->player.dirX + g->player.planeX * (*r).cameraX;
-	(*r).rayDirY = g->player.dirY + g->player.planeY * (*r).cameraX;
-	(*r).mapX = (int)g->player.posX;
-	(*r).mapY = (int)g->player.posY;
-	(*r).deltaDistX = fabs(1 / (*r).rayDirX);
-	(*r).deltaDistY = fabs(1 / (*r).rayDirY);
-	(*r).stepX = -((*r).rayDirX < 0) + ((*r).rayDirX >= 0);
-	(*r).sideDistX = ((*r).rayDirX < 0) * ((g->player.posX - (*r).mapX)
-			* (*r).deltaDistX) + ((*r).rayDirX >= 0) * ((r->mapX + 1.0
-				- g->player.posX) * (*r).deltaDistX);
-	(*r).stepY = -((*r).rayDirY < 0) + ((*r).rayDirY >= 0);
-	(*r).sideDistY = ((*r).rayDirY < 0) * ((g->player.posY - (*r).mapY)
-			* (*r).deltaDistY) + ((*r).rayDirY >= 0) * (((*r).mapY + 1.0
-				- g->player.posY) * (*r).deltaDistY);
+	r->cameraX = 2 * r->x / (double)SCREEN_WIDTH - 1;
+	r->rayDirX = g->player.dirX + g->player.planeX * r->cameraX;
+	if (r->rayDirX == 0)
+    	r->rayDirX = 1e-6;
+	r->rayDirY = g->player.dirY + g->player.planeY * r->cameraX;
+	if (r->rayDirY == 0)
+   		r->rayDirY = 1e-6;
+	r->mapX = (int)g->player.posX;
+	r->mapY = (int)g->player.posY;
+	r->deltaDistX = fabs(1 / r->rayDirX);
+	r->deltaDistY = fabs(1 / r->rayDirY);
+	r->stepX = -(r->rayDirX < 0) + (r->rayDirX >= 0);
+	r->sideDistX = (r->rayDirX < 0) * ((g->player.posX - r->mapX)
+			* r->deltaDistX) + (r->rayDirX >= 0) * ((r->mapX + 1.0
+				- g->player.posX) * r->deltaDistX);
+	r->stepY = -(r->rayDirY < 0) + (r->rayDirY >= 0);
+	r->sideDistY = (r->rayDirY < 0) * ((g->player.posY - r->mapY)
+			* r->deltaDistY) + (r->rayDirY >= 0) * ((r->mapY + 1.0
+				- g->player.posY) * r->deltaDistY);
 }
 
 static void	raycaster(t_game *g)
@@ -67,8 +71,8 @@ static void	raycaster(t_game *g)
 		r.perpWallDist = (r.side == 0) * (r.sideDistX - r.deltaDistX)
 			+ (r.side == 1) * (r.sideDistY - r.deltaDistY);
 		r.lineHeight = (int)(SCREEN_HEIGHT / r.perpWallDist);
-		r.drawStart = -r.lineHeight / 2 + SCREEN_HEIGHT / 2;
-		r.drawEnd = r.lineHeight / 2 + SCREEN_HEIGHT / 2;
+		r.drawStart = SCREEN_HEIGHT / 2 - r.lineHeight / 2 ;
+		r.drawEnd = SCREEN_HEIGHT / 2 + r.lineHeight / 2 ;
 		r.texNum = (r.side == 0) * (r.rayDirX <= 0) + (r.side == 1)
 			* ((r.rayDirY > 0) * 2 + (r.rayDirY <= 0) * 3);
 		r.wallX = (r.side == 0) * (g->player.posY + r.perpWallDist * r.rayDirY)

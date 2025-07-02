@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:25 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/06/29 20:26:56 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/02 22:18:43 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	move_player(t_game *g)
 	if (g->rotate_left || g->rotate_right)
 	{
 		if (g->rotate_left)
-			angle = -rot;
-		else
 			angle = rot;
+		else
+			angle = -rot;
 		rotate_player(g, angle);
 	}
 }
