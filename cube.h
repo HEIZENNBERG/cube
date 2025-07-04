@@ -6,14 +6,14 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:14 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/06/30 17:42:51 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/04 17:43:33 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
-# include "mlx/mlx.h"
+// # include "mlx/mlx.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
@@ -25,20 +25,6 @@
 # define SCREEN_HEIGHT 600
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
-
-typedef struct s_data
-{
-	int			fd_no;
-	int			fd_so;
-	int			fd_we;
-	int			fd_ea;
-	int			floor;
-	int			cellin;
-	char		**map;
-	int			x_player;
-	int			y_player;
-	int			map_height;
-}				t_data;
 
 typedef struct s_player
 {
@@ -52,6 +38,7 @@ typedef struct s_player
 
 typedef struct s_texture
 {
+	char 		*path;
 	void		*img;
 	char		*addr;
 	int			bpp;
@@ -61,6 +48,9 @@ typedef struct s_texture
 
 typedef struct s_game
 {
+	int			floor;
+	int			ceiling;
+	
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -69,6 +59,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_player	player;
+	int			map_height;
 	char		**map;
 	int			forward;
 	int			backward;
@@ -101,27 +92,26 @@ int				ft_space(int ch);
 int				valid_color(int val);
 void			copy_old_lines(char **dest, char **src, int count);
 void			exit_error(char **arr);
-int				fill_elements(char *line, t_data *data, int *done);
+int				fill_elements(char *line, t_game *data, int *done);
 void			remove_new_line(char *line);
-void			copy_map(char **tmp, t_data *data, char *line);
-void			store_map(char *line, int fd, t_data *data);
+void			copy_map(char **tmp, t_game *data, char *line);
+void			store_map(char *line, int fd, t_game *data);
 int				check_chars(char **arr);
 int				check_borders(char **map);
-int				check_args_init(t_data *data);
-int				init_colors(char **src, t_data *data);
-
-int				validate_map(t_data *data);
-int				init_cordination(char **src, t_data *data);
+int				init_colors(char **src, t_game *data);
+int				check_args_init(t_game *data);
+int				validate_map(t_game *data);
+int				init_cordination(char **src, t_game *data);
 int				parse_color(char **arr);
 int				map_begin(char *str);
 
-int				check_args(char *line, t_data *data, int done);
+int				check_args(char *line, t_game *data, int done);
 int				is_flooded(char c);
 int				check_flood(char **map, int height);
 int				check_lines_overflow(char **map, int height, int i);
 
-int				color_process(char *line, t_data *data);
-int				parse_cord(char *line, t_data *data);
+int				color_process(char *line, t_game *data);
+int				parse_cord(char *line, t_game *data);
 int				check_dash(char *line);
 int				line_empty(char *str);
 int				is_player_char(char c);

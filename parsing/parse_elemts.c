@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:49:06 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/30 17:35:48 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/04 17:26:18 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,31 @@ int	check_lines_overflow(char **map, int height, int i)
 	return (1);
 }
 
-void	normilize_map(t_data *data)
+void init_player_dirc(char c, double *x, double *y)
+{
+	if (c == 'N')
+	{
+		*x = 0;
+		*y = -1;
+	}
+	if (c == 'E')
+	{
+		*x = 0;
+		*y = 1;
+	}
+	if (c == 'S')
+	{
+		*x = 0;
+		*y = 1;
+	}
+	if (c == 'W')
+	{
+		*x = -1;
+		*y = 0;
+	}
+}
+
+void	normilize_map(t_game *data)
 {
 	int	i;
 	int	j;
@@ -88,8 +112,9 @@ void	normilize_map(t_data *data)
 				data->map[i][j] = '0';
 			if (is_player_char(data->map[i][j]))
 			{
-				data->y_player = i;
-				data->x_player = j;
+				init_player_dirc(data->map[i][j], &data->player.dirX, &data->player.dirY);
+				data->player.posX = i;
+				data->player.posY = j;
 				data->map[i][j] = '0';
 			}
 			j++;
@@ -98,7 +123,7 @@ void	normilize_map(t_data *data)
 	}
 }
 
-int	validate_map(t_data *data)
+int	validate_map(t_game *data)
 {
 	int	i;
 
@@ -117,7 +142,7 @@ int	validate_map(t_data *data)
 	return (1);
 }
 
-int	fill_elements(char *line, t_data *data, int *done)
+int	fill_elements(char *line, t_game *data, int *done)
 {
 	int	map_start;	
 

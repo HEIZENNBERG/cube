@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:45:43 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/30 17:36:21 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/04 17:07:14 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_dash(char *line)
 	return (0);
 }
 
-int	parse_cord(char *line, t_data *data)
+int	parse_cord(char *line, t_game *data)
 {
 	char	**splited;
 
@@ -61,7 +61,7 @@ int	parse_cord(char *line, t_data *data)
 	return (1);
 }
 
-int	color_process(char *line, t_data *data)
+int	color_process(char *line, t_game *data)
 {
 	char	**splited;
 
@@ -76,7 +76,7 @@ int	color_process(char *line, t_data *data)
 	return (1);
 }
 
-int	check_args(char *line, t_data *data, int done)
+int	check_args(char *line, t_game *data, int done)
 {
 	if (!done && (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
 			|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3)))

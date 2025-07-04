@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:51:21 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/30 17:40:12 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/04 17:19:49 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	remove_new_line(char *line)
 	}
 }
 
-void	copy_map(char	**tmp, t_data *data, char *line)
+void	copy_map(char	**tmp, t_game *data, char *line)
 {
 	copy_old_lines(tmp, data->map, data->map_height);
 	tmp[data->map_height] = line;
@@ -38,7 +38,7 @@ void	copy_map(char	**tmp, t_data *data, char *line)
 	data->map_height++;
 }
 
-void	store_map(char *line, int fd, t_data *data)
+void	store_map(char *line, int fd, t_game *data)
 {
 	char	**tmp;
 

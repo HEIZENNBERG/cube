@@ -6,44 +6,39 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:52:33 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/29 15:52:50 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/04 17:06:39 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int	check_args_init(t_data *data)
+int	check_args_init(t_game *data)
 {
-	if (data->cellin == -1)
+	if (data->ceiling == -1)
 		return (0);
 	if (data->floor == -1)
 		return (0);
-	if (data->fd_ea == -1)
+	if (data->textures[0].path == NULL)
 		return (0);
-	if (data->fd_we == -1)
+	if (data->textures[1].path == NULL)
 		return (0);
-	if (data->fd_so == -1)
+	if (data->textures[2].path == NULL)
 		return (0);
-	if (data->fd_no == -1)
+	if (data->textures[3].path == NULL)
 		return (0);
 	return (1);
 }
 
-int	init_cordination(char **src, t_data *data)
+int	init_cordination(char **src, t_game *data)
 {
-	int	fd;
-
-	fd = open(src[1], O_RDONLY);
-	if (fd < 0)
-		return (0);
 	if (!ft_strncmp(src[0], "NO", 2))
-		data->fd_no = fd;
+		data->textures[0].path = src[1];
 	else if (!ft_strncmp(src[0], "SO", 2))
-		data->fd_so = fd;
-	else if (!ft_strncmp(src[0], "WE", 2))
-		data->fd_we = fd;
+		data->textures[1].path = src[1];
 	else if (!ft_strncmp(src[0], "EA", 2))
-		data->fd_ea = fd;
+		data->textures[2].path = src[1];
+	else if (!ft_strncmp(src[0], "WE", 2))
+		data->textures[3].path = src[1];
 	else
 		return (0);
 	return (1);
@@ -65,7 +60,7 @@ int	parse_color(char **arr)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	init_colors(char **src, t_data *data)
+int	init_colors(char **src, t_game *data)
 {
 	char	**arr;
 	int		color;
@@ -83,7 +78,7 @@ int	init_colors(char **src, t_data *data)
 	if (!ft_strncmp(src[0], "F", 1))
 		data->floor = color;
 	else if (!ft_strncmp(src[0], "C", 1))
-		data->cellin = color;
+		data->ceiling = color;
 	else
 		return (0);
 	return (1);
