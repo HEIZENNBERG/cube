@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:23 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/04 22:16:27 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/04 22:54:20 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,30 +47,26 @@ void	draw_wall(t_game *g, t_ray *r)
 	int			tex_y;
 	t_texture	*tex;
 	int			color;
+	double		step;
+	double		text_pos;
+	int			texY;
 
 	tex = &g->textures[r->texNum];
 	y = r->drawStart;
 	if (r->drawEnd >= SCREEN_HEIGHT)
 		r->drawEnd = SCREEN_HEIGHT - 1;
-
-
-	double step = (double)TEX_HEIGHT / (double)r->lineHeight;
-	double texPos = (r->drawStart - SCREEN_HEIGHT / 2.0 + r->lineHeight / 2.0) * step;
-
-	y = r->drawStart;
+	step = (double)TEX_HEIGHT / (double)r->lineHeight;
+	text_pos = (r->drawStart - SCREEN_HEIGHT / 2.0 + r->lineHeight / 2.0) * step;
 	while (y <= r->drawEnd)
 	{
-		int texY = (int)texPos;
+		texY = (int)text_pos;
 		if (texY < 0)
 			texY = 0;
 		if (texY >= TEX_HEIGHT)
 			texY = TEX_HEIGHT - 1;
-
-		int color = *(unsigned int *)(tex->addr + (texY * tex->size_line + r->texX * (tex->bpp / 8)));
-		put_pixel_to_img(g, r->x, y, color);
-
-		texPos += step;
-		y++;
+		color = *(unsigned int *)(tex->addr + (texY * tex->size_line + r->texX
+					* (tex->bpp / 8)));
+		put_pixel_to_img(g, r->x, y++, color);
+		text_pos += step;
 	}
-
 }

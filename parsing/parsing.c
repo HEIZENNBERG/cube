@@ -39,20 +39,20 @@ void	copy_old_lines(char **dest, char **src, int count)
 	}
 }
 
-int ends_with(const char *haystack, const char *needle)
+int	ends_with(const char *haystack, const char *needle)
 {
-    int hay_len;
-    int needle_len;
-	int res;
+	int	hay_len;
+	int	needle_len;
+	int	res;
 
 	hay_len = ft_strlen(haystack);
-    needle_len = ft_strlen(needle);
-    if (needle_len > hay_len)
+	needle_len = ft_strlen(needle);
+	if (needle_len > hay_len)
 	{
-        return (0);
+		return (0);
 	}
 	haystack = haystack + (hay_len - needle_len);
-    res = ft_strncmp(haystack, needle, needle_len);
+	res = ft_strncmp(haystack, needle, needle_len);
 	return (res);
 }
 

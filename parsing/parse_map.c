@@ -28,7 +28,7 @@ void	remove_new_line(char *line)
 	}
 }
 
-void	copy_map(char	**tmp, t_game *data, char *line)
+void	copy_map(char **tmp, t_game *data, char *line)
 {
 	copy_old_lines(tmp, data->map, data->map_height);
 	tmp[data->map_height] = line;

@@ -73,7 +73,7 @@ int	check_lines_overflow(char **map, int height, int i)
 	return (1);
 }
 
-void init_player_dirc(char c, double *x, double *y)
+void	init_player_dirc(char c, double *x, double *y)
 {
 	if (c == 'N')
 	{
@@ -101,7 +101,7 @@ void	normilize_map(t_game *data)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (data->map[i])
 	{
@@ -112,9 +112,10 @@ void	normilize_map(t_game *data)
 				data->map[i][j] = '0';
 			if (is_player_char(data->map[i][j]))
 			{
-				init_player_dirc(data->map[i][j], &data->player.dirX, &data->player.dirY);
-				data->player.posY = i+0.5;
-				data->player.posX = j+0.5;
+				init_player_dirc(data->map[i][j], &data->player.dirX,
+					&data->player.dirY);
+				data->player.posY = i + 0.5;
+				data->player.posX = j + 0.5;
 				data->map[i][j] = '0';
 			}
 			j++;
@@ -144,7 +145,7 @@ int	validate_map(t_game *data)
 
 int	fill_elements(char *line, t_game *data, int *done)
 {
-	int	map_start;	
+	int	map_start;
 
 	map_start = check_args(line, data, *done);
 	if (map_start == 0)

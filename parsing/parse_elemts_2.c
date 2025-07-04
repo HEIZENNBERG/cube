@@ -37,7 +37,7 @@ int	check_dash(char *line)
 		return (0);
 	count = 0;
 	i = 0;
-	while (line [i])
+	while (line[i])
 	{
 		if (line[i] == ',')
 			count++;
@@ -84,8 +84,8 @@ int	check_args(char *line, t_game *data, int done)
 		if (!parse_cord(line, data))
 			return (0);
 	}
-	else if (!done && (!ft_strncmp(line, "F ", 2)
-			|| !ft_strncmp(line, "C ", 2)))
+	else if (!done && (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ",
+				2)))
 	{
 		if (!color_process(line, data))
 			return (0);

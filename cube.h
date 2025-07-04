@@ -14,13 +14,13 @@
 # define CUBE_H
 
 // # include "mlx/mlx.h"
+# include "mlx/mlx.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include "mlx/mlx.h"
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
@@ -40,7 +40,7 @@ typedef struct s_player
 
 typedef struct s_texture
 {
-	char 		*path;
+	char		*path;
 	void		*img;
 	char		*addr;
 	int			bpp;
@@ -52,7 +52,7 @@ typedef struct s_game
 {
 	int			floor;
 	int			ceiling;
-	
+
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -134,7 +134,7 @@ char			*ft_strdup(const char *s1);
 char			*ft_strjoin(char *s1, char *s2);
 int				ft_strchr(const char *s, int c);
 void			pre_init(t_game *data);
-void	init_data(t_game *data, char *file);
+void			init_data(t_game *data, char *file);
 char			*get_next_line(int fd);
 
 // raycasting

@@ -41,10 +41,10 @@ static void	init_ray(t_ray *r, t_game *g)
 	r->cameraX = 2 * r->x / (double)SCREEN_WIDTH - 1;
 	r->rayDirX = g->player.dirX + g->player.planeX * r->cameraX;
 	if (r->rayDirX == 0)
-    	r->rayDirX = 1e-6;
+		r->rayDirX = 1e-6;
 	r->rayDirY = g->player.dirY + g->player.planeY * r->cameraX;
 	if (r->rayDirY == 0)
-   		r->rayDirY = 1e-6;
+		r->rayDirY = 1e-6;
 	r->mapX = (int)g->player.posX;
 	r->mapY = (int)g->player.posY;
 	r->deltaDistX = fabs(1 / r->rayDirX);
@@ -71,8 +71,8 @@ static void	raycaster(t_game *g)
 		r.perpWallDist = (r.side == 0) * (r.sideDistX - r.deltaDistX)
 			+ (r.side == 1) * (r.sideDistY - r.deltaDistY);
 		r.lineHeight = (int)(SCREEN_HEIGHT / r.perpWallDist);
-		r.drawStart = SCREEN_HEIGHT / 2 - r.lineHeight / 2 ;
-		r.drawEnd = SCREEN_HEIGHT / 2 + r.lineHeight / 2 ;
+		r.drawStart = SCREEN_HEIGHT / 2 - r.lineHeight / 2;
+		r.drawEnd = SCREEN_HEIGHT / 2 + r.lineHeight / 2;
 		r.texNum = (r.side == 0) * (r.rayDirX <= 0) + (r.side == 1)
 			* ((r.rayDirY > 0) * 2 + (r.rayDirY <= 0) * 3);
 		r.wallX = (r.side == 0) * (g->player.posY + r.perpWallDist * r.rayDirY)

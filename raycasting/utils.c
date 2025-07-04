@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:28 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/01 21:47:36 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/04 22:49:24 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	load_texture(t_game *g, int i, char *path)
 	if (!g->textures[i].img)
 	{
 		perror("Error: failed to load a texture\n");
-		exit(EXIT_FAILURE); // to modify with a cleaning exut
+		exit(EXIT_FAILURE);
 	}
 	g->textures[i].addr = mlx_get_data_addr(g->textures[i].img,
 			&g->textures[i].bpp, &g->textures[i].size_line,
@@ -42,7 +42,7 @@ void	load_texture(t_game *g, int i, char *path)
 	if (!g->textures[i].addr)
 	{
 		perror("Error: failed to get address\n");
-		exit(EXIT_FAILURE);   // to modify with a cleaning exut
+		exit(EXIT_FAILURE);
 	}
 }
 
