@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:52:33 by onajem            #+#    #+#             */
-/*   Updated: 2025/07/04 17:06:39 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/04 18:29:50 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	check_args_init(t_game *data)
 int	init_cordination(char **src, t_game *data)
 {
 	if (!ft_strncmp(src[0], "NO", 2))
-		data->textures[0].path = src[1];
+		data->textures[0].path = ft_strdup(src[1]);
 	else if (!ft_strncmp(src[0], "SO", 2))
-		data->textures[1].path = src[1];
+		data->textures[1].path = ft_strdup(src[1]);
 	else if (!ft_strncmp(src[0], "EA", 2))
-		data->textures[2].path = src[1];
+		data->textures[2].path = ft_strdup(src[1]);
 	else if (!ft_strncmp(src[0], "WE", 2))
-		data->textures[3].path = src[1];
+		data->textures[3].path = ft_strdup(src[1]);
 	else
 		return (0);
 	return (1);

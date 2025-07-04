@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:53:13 by onajem            #+#    #+#             */
-/*   Updated: 2025/07/04 17:42:56 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/04 18:33:05 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,17 @@ void	pre_init(t_game *data)
 int main(int ac, char *av[])
 {
 	if (ac != 2)
+	{
+		printf("Error\nOne input file is required!\n");
 		return (1);
+	}
 	t_game game; 
 	pre_init(&game);
 	init_data(&game, av[1]);
-
+	printf("%s\n", game.textures[0].path);
 	free_array(game.map);
+	free( game.textures[0].path);
+	free( game.textures[1].path);
+	free( game.textures[2].path);
+	free( game.textures[3].path);
 }
