@@ -103,7 +103,7 @@ int main(int ac, char *av[])
 	t_game game; 
 	pre_init(&game);
 	init_data(&game, av[1]);
-	printf("%s\n", game.textures[0].path);
+
 	free_array(game.map);
 	free( game.textures[0].path);
 	free( game.textures[1].path);
