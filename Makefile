@@ -1,34 +1,32 @@
+
+
+
 SRC = parsing/utils/get_next_line.c parsing/utils/get_next_line_utils.c parsing/utils/ft_split.c \
-  parsing/utils/helpers.c parsing/parsing.c  parsing/utils/split_space.c parsing/utils/ft_atoi.c \
-  parsing/parse_elemts_2.c  parsing/parse_elemts.c  parsing/parse_map.c  parsing/parse_utils.c
+  parsing/utils/helpers.c parsing/parsing.c parsing/utils/split_space.c parsing/utils/ft_atoi.c \
+  parsing/parse_elemts_2.c parsing/parse_elemts.c parsing/parse_map.c parsing/parse_utils.c \
+  raycasting/draw.c raycasting/main.c raycasting/moves.c raycasting/raycasting.c raycasting/utils.c
 
 OBJ = ${SRC:.c=.o}
-
-OBJ_B = ${SRC_B:.c=.o}
-
 CC = cc
-
-NAME = cube
-
+CFLAGS = -Imlx
+LDFLAGS = -Lmlx -lmlx -lXext -lX11 -lm
+NAME = cube3D
 RM = rm -f
+all: ${NAME}
 
-GFLAGS = -Werror -Wall -Wextra
+%.o: %.c cube.h
+	${CC} ${CFLAGS} -c $< -o $@
 
-all : ${NAME}
+${NAME}: ${OBJ}
+	${CC} ${CFLAGS} ${OBJ} -o ${NAME} ${LDFLAGS}
 
 
-%.o: %.c cube.h 
-	${CC} -fsanitize=address ${GFLAGS} -c $< -o $@ 
+clean:
+	${RM} ${OBJ}
 
-${NAME} : ${OBJ}
-	${CC} -fsanitize=address ${OBJ} -o ${NAME}
+fclean: clean
+	${RM} ${NAME}
 
-clean : 
-	${RM} ${OBJ} 
+re: fclean all
 
-fclean : clean
-	${RM} ${NAME} 
-
-re : fclean all
-
-.PHONY: clean fclean all
+.PHONY: all clean fclean re

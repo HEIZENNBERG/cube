@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:51:21 by onajem            #+#    #+#             */
-/*   Updated: 2025/07/04 17:19:49 by onajem           ###   ########.fr       */
+/*   Updated: 2025/06/29 15:52:20 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	remove_new_line(char *line)
 	}
 }
 
-void	copy_map(char	**tmp, t_game *data, char *line)
+void	copy_map(char	**tmp, t_data *data, char *line)
 {
 	copy_old_lines(tmp, data->map, data->map_height);
 	tmp[data->map_height] = line;
@@ -38,17 +38,19 @@ void	copy_map(char	**tmp, t_game *data, char *line)
 	data->map_height++;
 }
 
-void	store_map(char *line, int fd, t_game *data)
+void	store_map(char *line, int fd, t_data *data)
 {
 	char	**tmp;
 
 	data->map_height = 1;
 	data->map = (char **)malloc(sizeof(char *) * (data->map_height + 1));
 	if (!data->map)
-		(free(line), exit_error(NULL));
+	{
+		free(line);
+		exit_error(NULL);
+	}
 	data->map[0] = line;
 	data->map[1] = NULL;
-	remove_new_line(line);
 	while (1)
 	{
 		line = get_next_line(fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_elemts.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:49:06 by onajem            #+#    #+#             */
-/*   Updated: 2025/07/04 22:32:34 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/06/29 15:51:08 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,57 +73,7 @@ int	check_lines_overflow(char **map, int height, int i)
 	return (1);
 }
 
-void init_player_dirc(char c, double *x, double *y)
-{
-	if (c == 'N')
-	{
-		*x = 0;
-		*y = -1;
-	}
-	if (c == 'E')
-	{
-		*x = 1;
-		*y = 0;
-	}
-	if (c == 'S')
-	{
-		*x = 0;
-		*y = 1;
-	}
-	if (c == 'W')
-	{
-		*x = -1;
-		*y = 0;
-	}
-}
-
-void	normilize_map(t_game *data)
-{
-	int	i;
-	int	j;
-	
-	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == ' ')
-				data->map[i][j] = '0';
-			if (is_player_char(data->map[i][j]))
-			{
-				init_player_dirc(data->map[i][j], &data->player.dirX, &data->player.dirY);
-				data->player.posY = i+0.5;
-				data->player.posX = j+0.5;
-				data->map[i][j] = '0';
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-int	validate_map(t_game *data)
+int	validate_map(t_data *data)
 {
 	int	i;
 
@@ -138,11 +88,10 @@ int	validate_map(t_game *data)
 		return (0);
 	if (!check_flood(data->map, data->map_height))
 		return (0);
-	normilize_map(data);
 	return (1);
 }
 
-int	fill_elements(char *line, t_game *data, int *done)
+int	fill_elements(char *line, t_data *data, int *done)
 {
 	int	map_start;	
 

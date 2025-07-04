@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:23 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/02 00:26:36 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/04 22:16:27 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,6 @@ void	draw_wall(t_game *g, t_ray *r)
 	y = r->drawStart;
 	if (r->drawEnd >= SCREEN_HEIGHT)
 		r->drawEnd = SCREEN_HEIGHT - 1;
-	// while (y <= r->drawEnd)
-	// {
-	// 	d = y * 256 - SCREEN_HEIGHT * 128 + r->lineHeight * 128;
-	// 	tex_y = ((d * TEX_HEIGHT) / r->lineHeight) / 256;
-	// 	if (tex_y < 0)
-	// 		tex_y = 0;
-	// 	if (tex_y >= TEX_HEIGHT)
-	// 		tex_y = TEX_HEIGHT - 1;
-	// 	color = *(int *)(tex->addr + (tex_y * tex->size_line + r->texX
-	// 				* (tex->bpp / 8)));
-	// 	put_pixel_to_img(g, r->x, y, color);
-	// 	y++;
-	// }
 
 
 	double step = (double)TEX_HEIGHT / (double)r->lineHeight;

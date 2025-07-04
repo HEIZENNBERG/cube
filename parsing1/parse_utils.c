@@ -3,42 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:52:33 by onajem            #+#    #+#             */
-/*   Updated: 2025/07/04 18:29:50 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/04 21:21:31 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int	check_args_init(t_game *data)
+int	check_args_init(t_data *data)
 {
-	if (data->ceiling == -1)
+	if (data->cellin == -1)
 		return (0);
 	if (data->floor == -1)
 		return (0);
-	if (data->textures[0].path == NULL)
+	if (data->fd_ea == -1)
 		return (0);
-	if (data->textures[1].path == NULL)
+	if (data->fd_we == -1)
 		return (0);
-	if (data->textures[2].path == NULL)
+	if (data->fd_so == -1)
 		return (0);
-	if (data->textures[3].path == NULL)
+	if (data->fd_no == -1)
 		return (0);
 	return (1);
 }
 
-int	init_cordination(char **src, t_game *data)
+int	init_cordination(char **src, t_data *data)
 {
+	int	fd;
+
+	fd = open(src[1], O_RDONLY);
+	if (fd < 0)
+		return (0);
 	if (!ft_strncmp(src[0], "NO", 2))
-		data->textures[0].path = ft_strdup(src[1]);
+		data->fd_no = fd;
 	else if (!ft_strncmp(src[0], "SO", 2))
-		data->textures[1].path = ft_strdup(src[1]);
-	else if (!ft_strncmp(src[0], "EA", 2))
-		data->textures[2].path = ft_strdup(src[1]);
+		data->fd_so = fd;
 	else if (!ft_strncmp(src[0], "WE", 2))
-		data->textures[3].path = ft_strdup(src[1]);
+		data->fd_we = fd;
+	else if (!ft_strncmp(src[0], "EA", 2))
+		data->fd_ea = fd;
 	else
 		return (0);
 	return (1);
@@ -60,7 +65,7 @@ int	parse_color(char **arr)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	init_colors(char **src, t_game *data)
+int	init_colors(char **src, t_data *data)
 {
 	char	**arr;
 	int		color;
@@ -78,7 +83,7 @@ int	init_colors(char **src, t_game *data)
 	if (!ft_strncmp(src[0], "F", 1))
 		data->floor = color;
 	else if (!ft_strncmp(src[0], "C", 1))
-		data->ceiling = color;
+		data->cellin = color;
 	else
 		return (0);
 	return (1);

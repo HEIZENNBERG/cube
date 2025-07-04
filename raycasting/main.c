@@ -6,57 +6,55 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:18 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/01 22:02:13 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/04 22:04:54 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-char	*worldMap[] = {"1111111111111111111111111",
-					   "1010000000110000000000001",
-					   "1111000001110000000000001", "1001000000000000000000001",
-		"1111111110110000011100001", "1000000000110000011101111",
-		"111101111111110111000001", "111101111111110111010101",
-		"110000001101010111000001", "100000000000000011000001",
-		"100000001000000011010101", "110000011000101111101111",
-		"111101111110101101111101", "111111111111111111111111", NULL};
+
+
+#include "../cube.h"
+
+
 
 static void load_textures(t_game *g){
-	load_texture(g, 0, "textures/no.xpm");
-	load_texture(g, 1, "textures/so.xpm");
-	load_texture(g, 2, "textures/ea.xpm");
-	load_texture(g, 3, "textures/we.xpm");
+	load_texture(g, 0, g->textures[0].path);
+	load_texture(g, 1, g->textures[1].path);
+	load_texture(g, 2, g->textures[2].path);
+	load_texture(g, 3, g->textures[3].path);
 }
 
-int	main(void)
+	
+
+int main(int ac, char *av[])
 {
-	t_game g;
+	if (ac != 2)
+	{
+		printf("Error\nOne input file is required!\n");
+		return (1);
+	}
+	t_game game; 
+	pre_init(&game);
+	init_data(&game, av[1]);
+	game.player.planeX = -game.player.dirY * FOV;
+	game.player.planeY =  game.player.dirX * FOV;
+	printf("---------------%f----%f-------- \n",game.player.posX,game.player.posY);
+	game.mlx = mlx_init();
+	load_textures(&game);
+	game.win = mlx_new_window(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cube3D");
+	game.img = mlx_new_image(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	game.img_data = mlx_get_data_addr(game.img, &game.bpp, &game.size_line, &game.endian);
+	mlx_loop_hook(game.mlx, render, &game);
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+	mlx_loop(game.mlx);
 
-	double	oldir_x;
-	
-	
-	g.map = worldMap;
-	g.forward = 0;
-	g.backward = 0;
-	g.rotate_left = 0;
-	g.rotate_right = 0;
-	g.player.posX = 10.5;
-	g.player.posY = 11.5;
-	g.player.dirX = 1;
-	oldir_x = g.player.dirX;
-	g.player.dirY = 0.5;
-
-	g.player.planeX = -g.player.dirY * FOV;
-	g.player.planeY =  g.player.dirX * FOV;
-
-	g.mlx = mlx_init();
-	load_textures(&g);
-	g.win = mlx_new_window(g.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cube3D");
-	g.img = mlx_new_image(g.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	g.img_data = mlx_get_data_addr(g.img, &g.bpp, &g.size_line, &g.endian);
-	mlx_loop_hook(g.mlx, render, &g);
-	mlx_hook(g.win, 2, 1L << 0, key_press, &g);
-	mlx_hook(g.win, 3, 1L << 1, key_release, &g);
-	mlx_loop(g.mlx);
+	// free_array(game.map);
+	// free( game.textures[0].path);
+	// free( game.textures[1].path);
+	// free( game.textures[2].path);
+	// free( game.textures[3].path);
 	return (0);
 }
+
