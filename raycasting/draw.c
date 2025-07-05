@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:23 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/04 22:54:20 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:47:26 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_ceiling(t_game *g, t_ray *r)
 		r->drawStart = 0;
 	while (y < r->drawStart)
 	{
-		put_pixel_to_img(g, r->x, y, 0x87CEEB);
+		put_pixel_to_img(g, r->x, y, g->ceiling);
 		y++;
 	}
 }
@@ -35,7 +35,7 @@ void	draw_floor(t_game *g, int x, int draw_end)
 	y = draw_end + 1;
 	while (y < SCREEN_HEIGHT)
 	{
-		put_pixel_to_img(g, x, y, 0x228B22);
+		put_pixel_to_img(g, x, y, g->floor);
 		y++;
 	}
 }
