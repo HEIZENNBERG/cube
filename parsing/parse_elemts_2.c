@@ -109,8 +109,8 @@ int	check_args(char *line, t_game *data, int done)
 			return (p_error("Unvalid map!"), 0);
 		else if (map_begin(line))
 			return (p_error("One or more elements are missing!"), 0);
+		else 
+			return (p_error("Unvalid element!"), 0);
 	}
-	else if (!done && map_begin(line))
-		return (p_error("One or more elements are missing!"), 0);
 	return (1);
 }
