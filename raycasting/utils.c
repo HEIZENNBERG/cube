@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:28 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/05 18:48:15 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/05 21:39:10 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,22 @@ void	load_texture(t_game *g, int i, char *path)
 	}
 }
 
+
 int	key_press(int keycode, t_game *game)
 {
+	printf("key--%d--\n", keycode);
 	if (keycode == 119)
 		game->forward = 1;
 	if (keycode == 115)
 		game->backward = 1;
 	if (keycode == 100)
-		game->rotate_left = 1;
+		game->right = 1;
 	if (keycode == 97)
+		game->left = 1;
+	if (keycode == 65361)
 		game->rotate_right = 1;
+	if (keycode == 65363)
+		game->rotate_left = 1;
 	if (keycode == 65307)
 		exit(0);
 	return (0);
@@ -68,8 +74,13 @@ int	key_release(int keycode, t_game *game)
 	if (keycode == 115)
 		game->backward = 0;
 	if (keycode == 100)
-		game->rotate_left = 0;
+		game->right = 0;
 	if (keycode == 97)
+		game->left = 0;
+	if (keycode == 65361)
 		game->rotate_right = 0;
+	if (keycode == 65363)
+		game->rotate_left = 0;
 	return (0);
 }
+

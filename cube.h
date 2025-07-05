@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:14 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/05 18:10:13 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/05 21:41:36 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
-# define TEX_WIDTH 650
-# define TEX_HEIGHT 650
+# define TEX_WIDTH 480
+# define TEX_HEIGHT 480
 # define FOV 0.66
+# define COLLISION_BUFFER 0.1
 
 typedef struct s_player
 {
@@ -66,6 +67,8 @@ typedef struct s_game
 	int			backward;
 	int			rotate_left;
 	int			rotate_right;
+	int 		left;
+	int 		right;
 	t_texture	textures[4];
 }				t_game;
 

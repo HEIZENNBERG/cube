@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:25 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/02 22:18:43 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/05 21:37:44 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static void	move_forward(t_game *g, double speed)
 {
 	if (g->map[(int)(g->player.posY)][(int)(g->player.posX + g->player.dirX
-			* speed)] != '1')
+			* (speed + COLLISION_BUFFER))] != '1')
 		g->player.posX += g->player.dirX * speed;
-	if (g->map[(int)(g->player.posY + g->player.dirY
-			* speed)][(int)(g->player.posX)] != '1')
+	if (g->map[(int)(g->player.posY + g->player.dirY * (speed
+				+ COLLISION_BUFFER))][(int)(g->player.posX)] != '1')
 		g->player.posY += g->player.dirY * speed;
 }
 
@@ -30,6 +30,25 @@ static void	move_backward(t_game *g, double speed)
 	if (g->map[(int)(g->player.posY - g->player.dirY
 			* speed)][(int)(g->player.posX)] != '1')
 		g->player.posY -= g->player.dirY * speed;
+}
+static void	move_right(t_game *g, double speed)
+{
+	if (g->map[(int)(g->player.posY)][(int)(g->player.posX + g->player.planeX
+			* speed)] != '1')
+		g->player.posX += g->player.planeX * speed;
+	if (g->map[(int)(g->player.posY + g->player.planeY
+			* speed)][(int)(g->player.posX)] != '1')
+		g->player.posY += g->player.planeY * speed;
+}
+
+static void	move_left(t_game *g, double speed)
+{
+	if (g->map[(int)(g->player.posY)][(int)(g->player.posX - g->player.planeX
+			* speed)] != '1')
+		g->player.posX -= g->player.planeX * speed;
+	if (g->map[(int)(g->player.posY - g->player.planeY
+			* speed)][(int)(g->player.posX)] != '1')
+		g->player.posY -= g->player.planeY * speed;
 }
 
 static void	rotate_player(t_game *g, double angle)
@@ -58,6 +77,10 @@ void	move_player(t_game *g)
 		move_forward(g, speed);
 	if (g->backward)
 		move_backward(g, speed);
+	if (g->left)
+		move_left(g, speed);
+	if (g->right)
+		move_right(g, speed);
 	if (g->rotate_left || g->rotate_right)
 	{
 		if (g->rotate_left)
