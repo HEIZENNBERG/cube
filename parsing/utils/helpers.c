@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:40:06 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/30 17:29:23 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/05 18:07:05 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 	int		check;
 
+	if (!s1 || !s2)
+		return (218);
 	i = 0;
 	check = 0;
 	while ((s1[i] || s2[i]) && (i < n))

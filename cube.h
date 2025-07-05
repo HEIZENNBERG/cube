@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:14 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/04 22:16:19 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:10:13 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
-// # include "mlx/mlx.h"
 # include "mlx/mlx.h"
 # include <fcntl.h>
 # include <limits.h>
@@ -90,6 +89,7 @@ typedef struct s_ray
 	double		wallX;
 }				t_ray;
 
+void			p_error(char *err);
 int				ft_space(int ch);
 int				valid_color(int val);
 void			copy_old_lines(char **dest, char **src, int count);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:28 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/04 22:49:24 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:48:15 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	load_texture(t_game *g, int i, char *path)
 	g->textures[i].img = mlx_xpm_file_to_image(g->mlx, path, &tw, &th);
 	if (!g->textures[i].img)
 	{
-		perror("Error: failed to load a texture\n");
+		perror("Error\nfailed to load a texture : ");
 		exit(EXIT_FAILURE);
 	}
 	g->textures[i].addr = mlx_get_data_addr(g->textures[i].img,
@@ -41,7 +41,7 @@ void	load_texture(t_game *g, int i, char *path)
 			&g->textures[i].endian);
 	if (!g->textures[i].addr)
 	{
-		perror("Error: failed to get address\n");
+		perror("Error\n failed to get address : ");
 		exit(EXIT_FAILURE);
 	}
 }

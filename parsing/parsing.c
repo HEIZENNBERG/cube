@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:53:13 by onajem            #+#    #+#             */
-/*   Updated: 2025/07/04 18:41:38 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:42:21 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	exit_error(char **arr)
 {
 	if (arr)
 		free_array(arr);
-	printf("Error\n");
 	exit(1);
 }
 
@@ -78,7 +77,11 @@ void	init_data(t_game *data, char *file)
 	}
 	store_map(line, fd, data);
 	if (!validate_map(data))
+	{
+		// if ()
+		p_error("Unvalid map!");
 		exit_error(data->map);
+	}
 }
 
 void	pre_init(t_game *data)
@@ -88,6 +91,8 @@ void	pre_init(t_game *data)
 	data->textures[2].path = NULL;
 	data->textures[3].path = NULL;
 	data->map = NULL;
+	data->floor = -1;
+	data->ceiling = -1;
 	data->map_height = 0;
 	data->forward = 0;
 	data->backward = 0;
