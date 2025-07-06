@@ -69,7 +69,10 @@ int	color_process(char *line, t_game *data)
 	char	**splited;
 
 	if (!check_dash(line))
+	{
+		p_error("Only three arguments required per color!");
 		return (0);
+	}
 	splited = split_space(line);
 	if (!splited)
 		return (0);
