@@ -55,9 +55,14 @@ int	parse_cord(char *line, t_game *data)
 	splited = split_space(line);
 	if (!splited)
 		return (0);
-	if (size_2d(splited) > 2 || !init_cordination(splited, data))
+	if (size_2d(splited) > 2)
 	{
 		p_error("Only two arguments required per texture elements!");
+		exit_error(splited);
+	}
+	if (!init_cordination(splited, data))
+	{
+		p_error("Failed initializing texture elements!");
 		exit_error(splited);
 	}
 	free_array(splited);
