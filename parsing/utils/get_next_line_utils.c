@@ -26,7 +26,7 @@ size_t	ft_strlen(const char *s)
 
 int	ft_strchr(const char *s, int c)
 {
-	int	i;	
+	int	i;
 
 	i = 0;
 	if (!s)

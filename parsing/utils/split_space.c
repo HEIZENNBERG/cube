@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:19:28 by onajem            #+#    #+#             */
-/*   Updated: 2025/06/29 15:44:53 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/06 17:32:15 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	count_words(char const *s)
 	words = 0;
 	while (s[i])
 	{
-		if ((!ft_space(s[i]) && ft_space(s[i + 1]))
-			|| (!ft_space(s[i]) && s[i + 1] == '\0'))
+		if ((!ft_space(s[i]) && ft_space(s[i + 1])) || (!ft_space(s[i])
+				&& s[i + 1] == '\0'))
 			words++;
 		i++;
 	}

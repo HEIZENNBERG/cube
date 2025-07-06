@@ -14,8 +14,8 @@
 
 int	is_map_char(char c)
 {
-	return (c == '0' || c == '1' || c == ' ' || c == 'N'
-		|| c == 'S' || c == 'E' || c == 'W');
+	return (c == '0' || c == '1' || c == ' ' || c == 'N' || c == 'S' || c == 'E'
+		|| c == 'W');
 }
 
 int	is_player_char(char c)

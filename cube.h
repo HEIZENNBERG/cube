@@ -67,8 +67,8 @@ typedef struct s_game
 	int			backward;
 	int			rotate_left;
 	int			rotate_right;
-	int 		left;
-	int 		right;
+	int			left;
+	int			right;
 	t_texture	textures[4];
 }				t_game;
 

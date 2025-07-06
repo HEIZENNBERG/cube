@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:53:13 by onajem            #+#    #+#             */
-/*   Updated: 2025/07/06 11:43:28 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/06 17:30:55 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int ft_open(char *file, int flag)
+int	ft_open(char *file, int flag)
 {
-	static int fd = -1;
+	static int	fd = -1;
 
 	if (flag == 1)
 	{
@@ -24,21 +24,6 @@ int ft_open(char *file, int flag)
 	else if (flag == 0 && fd != -1)
 		close(fd);
 	return (-1);
-}
-
-void	exit_error(char **arr)
-{
-	if (arr)
-		free_array(arr);
-	ft_open(NULL, 0);
-	exit(1);
-}
-
-int	valid_color(int val)
-{
-	if (val < 0 || val > 255)
-		return (0);
-	return (1);
 }
 
 void	copy_old_lines(char **dest, char **src, int count)

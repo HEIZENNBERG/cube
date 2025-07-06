@@ -47,7 +47,7 @@ void	store_map(char *line, int fd, t_game *data)
 	data->map_height = 1;
 	data->map = (char **)malloc(sizeof(char *) * (data->map_height + 1));
 	if (!data->map)
-		(free(line), p_error("malloc failed!") ,exit_error(NULL));
+		(free(line), p_error("malloc failed!"), exit_error(NULL));
 	data->map[0] = line;
 	data->map[1] = NULL;
 	remove_new_line(line);

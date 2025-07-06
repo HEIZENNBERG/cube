@@ -49,8 +49,8 @@ static int	num_start(const char **str)
 
 int	ft_atoi(const char *nptr)
 {
-	int			sign;
-	int			sum;
+	int	sign;
+	int	sum;
 
 	sum = 0;
 	sign = num_start(&nptr);
