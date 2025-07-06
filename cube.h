@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:14 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/06 16:46:30 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/06 20:57:01 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_ray
 }				t_ray;
 
 void			p_error(char *err);
+int				ft_open(char *file, int flag);
 int				ft_space(int ch);
 int				valid_color(int val);
 void			copy_old_lines(char **dest, char **src, int count);
