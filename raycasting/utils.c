@@ -6,7 +6,7 @@
 /*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:28 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/05 21:39:10 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/06 13:31:55 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void	load_texture(t_game *g, int i, char *path)
 	}
 }
 
-
 int	key_press(int keycode, t_game *game)
 {
-	printf("key--%d--\n", keycode);
 	if (keycode == 119)
 		game->forward = 1;
 	if (keycode == 115)
@@ -83,4 +81,3 @@ int	key_release(int keycode, t_game *game)
 		game->rotate_left = 0;
 	return (0);
 }
-

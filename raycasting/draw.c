@@ -56,7 +56,8 @@ void	draw_wall(t_game *g, t_ray *r)
 	if (r->drawEnd >= SCREEN_HEIGHT)
 		r->drawEnd = SCREEN_HEIGHT - 1;
 	step = (double)TEX_HEIGHT / (double)r->lineHeight;
-	text_pos = (r->drawStart - SCREEN_HEIGHT / 2.0 + r->lineHeight / 2.0) * step;
+	text_pos = (r->drawStart - SCREEN_HEIGHT / 2.0 + r->lineHeight / 2.0)
+		* step;
 	while (y <= r->drawEnd)
 	{
 		texY = (int)text_pos;

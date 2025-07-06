@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
+/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:18 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/06 11:31:41 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/06 13:30:35 by aelkadir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 static void	load_textures(t_game *g)
 {
@@ -39,8 +39,6 @@ int	main(int ac, char *av[])
 	}
 	pre_init(&game);
 	init_data(&game, av[1]);
-
-	
 	game.player.planeX = -game.player.dirY * FOV;
 	game.player.planeY = game.player.dirX * FOV;
 	game.mlx = mlx_init();
