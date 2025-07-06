@@ -31,13 +31,13 @@ int	check_args_init(t_game *data)
 
 int	init_cordination(char **src, t_game *data)
 {
-	if (!ft_strncmp(src[0], "NO", 2))
+	if (!ft_strncmp(src[0], "NO", 2) && data->textures[0].path == NULL)
 		data->textures[0].path = ft_strdup(src[1]);
-	else if (!ft_strncmp(src[0], "SO", 2))
+	else if (!ft_strncmp(src[0], "SO", 2) && data->textures[1].path == NULL)
 		data->textures[1].path = ft_strdup(src[1]);
-	else if (!ft_strncmp(src[0], "EA", 2))
+	else if (!ft_strncmp(src[0], "EA", 2) && data->textures[2].path == NULL)
 		data->textures[2].path = ft_strdup(src[1]);
-	else if (!ft_strncmp(src[0], "WE", 2))
+	else if (!ft_strncmp(src[0], "WE", 2) && data->textures[3].path == NULL)
 		data->textures[3].path = ft_strdup(src[1]);
 	else
 		return (0);
@@ -75,9 +75,9 @@ int	init_colors(char **src, t_game *data)
 	free_array(arr);
 	if (color == -1)
 		return (0);
-	if (!ft_strncmp(src[0], "F", 1))
+	if (!ft_strncmp(src[0], "F", 1) && data->floor == -1)
 		data->floor = color;
-	else if (!ft_strncmp(src[0], "C", 1))
+	else if (!ft_strncmp(src[0], "C", 1) && data->ceiling == -1)
 		data->ceiling = color;
 	else
 		return (0);
