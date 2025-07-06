@@ -6,16 +6,31 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 15:53:13 by onajem            #+#    #+#             */
-/*   Updated: 2025/07/05 18:42:21 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/06 11:43:28 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
+int ft_open(char *file, int flag)
+{
+	static int fd = -1;
+
+	if (flag == 1)
+	{
+		fd = open(file, O_RDONLY);
+		return (fd);
+	}
+	else if (flag == 0 && fd != -1)
+		close(fd);
+	return (-1);
+}
+
 void	exit_error(char **arr)
 {
 	if (arr)
 		free_array(arr);
+	ft_open(NULL, 0);
 	exit(1);
 }
 
@@ -63,7 +78,7 @@ void	init_data(t_game *data, char *file)
 
 	if (ends_with(file, ".cub") != 0)
 		(printf("Error\nRequired a .cub file!\n"), exit(1));
-	fd = open(file, O_RDONLY);
+	fd = ft_open(file, 1);
 	if (fd < 0)
 		(printf("Error\nFile could not open!\n"), exit(1));
 	done = 0;
@@ -76,9 +91,9 @@ void	init_data(t_game *data, char *file)
 			break ;
 	}
 	store_map(line, fd, data);
+	close(fd);
 	if (!validate_map(data))
 	{
-		// if ()
 		p_error("Unvalid map!");
 		exit_error(data->map);
 	}

@@ -6,7 +6,7 @@
 /*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:18 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/05 18:33:25 by onajem           ###   ########.fr       */
+/*   Updated: 2025/07/06 11:31:41 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ int	main(int ac, char *av[])
 	pre_init(&game);
 	init_data(&game, av[1]);
 
-
-	// free_array(game.map);
-	// free_textures(game);
-	// return (0);
 	
 	game.player.planeX = -game.player.dirY * FOV;
 	game.player.planeY = game.player.dirX * FOV;
