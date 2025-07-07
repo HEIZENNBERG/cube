@@ -1,8 +1,9 @@
 SO          ../path/south
 
 
-F 254,100,0
-C 225,30,0
+F 59,178,237
+C 225,214,255
+
 
 NO ../path/north
 WE ../path/west
