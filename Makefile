@@ -9,14 +9,20 @@ CFLAGS = -Imlx -fsanitize=address
 LDFLAGS = -Lmlx -lmlx -lXext -lX11 -lm
 NAME = cube3D
 RM = rm -f
+
+MLX_DIR = mlx
+MLX_LIB = mlx/libmlx_Linux.a
+
 all: ${NAME}
 
 %.o: %.c cube.h
 	${CC} ${CFLAGS} -c $< -o $@
 
-${NAME}: ${OBJ}
+${NAME}: ${OBJ} ${MLX_LIB}
 	${CC} ${CFLAGS} ${OBJ} -o ${NAME} ${LDFLAGS}
 
+${MLX_LIB}:
+	$(MAKE) -C ${MLX_DIR}
 
 clean:
 	${RM} ${OBJ}

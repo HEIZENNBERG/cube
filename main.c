@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelkadir <aelkadir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onajem <onajem@student.42.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 20:24:18 by aelkadir          #+#    #+#             */
-/*   Updated: 2025/07/06 13:30:35 by aelkadir         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:41:16 by onajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int ac, char *av[])
 	}
 	pre_init(&game);
 	init_data(&game, av[1]);
+
 	game.player.planeX = -game.player.dirY * FOV;
 	game.player.planeY = game.player.dirX * FOV;
 	game.mlx = mlx_init();
@@ -55,3 +56,5 @@ int	main(int ac, char *av[])
 	free_textures(game);
 	return (0);
 }
+
+850 x 480
